@@ -314,6 +314,9 @@ importers:
       papaparse:
         specifier: 5.4.1
         version: 5.4.1
+      pgvector:
+        specifier: 0.1.8
+        version: 0.1.8
       pino:
         specifier: 8.19.0
         version: 8.19.0
@@ -16466,6 +16469,11 @@ packages:
     requiresBuild: true
     dependencies:
       split2: 4.2.0
+
+  /pgvector@0.1.8:
+    resolution: {integrity: sha512-mD6aw+XYJrsuLl3Y8s8gHDDfOZQ9ERtfQPdhvjOrC7eOTM7b6sNkxeZxBhHwUdXMfHmyGWIbwU0QbmSnn7pPmg==}
+    engines: {node: '>= 12'}
+    dev: false
 
   /picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}

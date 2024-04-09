@@ -13,6 +13,7 @@ export const KNEX_TYPES = [
 	'timestamp',
 	'binary',
 	'uuid',
+	'vector',
 ] as const;
 
 export const TYPES = [

@@ -4,6 +4,7 @@ import { createInspector } from '@directus/schema';
 import fse from 'fs-extra';
 import type { Knex } from 'knex';
 import knex from 'knex';
+import pgvector from 'pgvector/knex';
 import { merge } from 'lodash-es';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -302,6 +303,12 @@ export async function validateDatabaseExtensions(): Promise<void> {
 	const helpers = getHelpers(database);
 	const geometrySupport = await helpers.st.supported();
 	const logger = useLogger();
+
+	if (client === 'postgres') {
+		logger.info('enable vector extension');
+		await database.schema.enableExtension('vector');
+		logger.info('enable vector extension done');
+	}
 
 	if (!geometrySupport) {
 		switch (client) {
