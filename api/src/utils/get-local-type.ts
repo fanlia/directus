@@ -93,6 +93,7 @@ const localTypeMap: Record<string, Type | 'unknown'> = {
 	float4: 'float',
 	float8: 'float',
 	citext: 'text',
+	vector: 'vector',
 
 	// Oracle
 	number: 'integer',
