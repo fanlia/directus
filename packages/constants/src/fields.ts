@@ -13,7 +13,6 @@ export const KNEX_TYPES = [
 	'timestamp',
 	'binary',
 	'uuid',
-	'vector',
 ] as const;
 
 export const TYPES = [
@@ -29,6 +28,7 @@ export const TYPES = [
 	'geometry.MultiLineString',
 	'geometry.MultiPolygon',
 	'unknown',
+	'vector',
 ] as const;
 
 export const GEOMETRY_TYPES = [

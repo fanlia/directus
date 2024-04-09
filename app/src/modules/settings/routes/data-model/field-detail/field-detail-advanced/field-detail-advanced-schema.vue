@@ -58,6 +58,10 @@ const fieldTypes: Array<FieldTypeOption | { divider: true }> = [
 	},
 	{ divider: true },
 	{
+		text: '$t:vector',
+		value: 'vector',
+	},
+	{
 		text: '$t:json',
 		value: 'json',
 	},
@@ -360,8 +364,8 @@ function useOnUpdate() {
 						v-model="maxLength"
 						type="number"
 						:min="1"
-						:placeholder="type !== 'string' ? t('not_available_for_type') : '255'"
-						:disabled="isExisting || type !== 'string'"
+						:placeholder="!['string', 'vector'].includes(type) ? t('not_available_for_type') : '255'"
+						:disabled="isExisting || !['string', 'vector'].includes(type)"
 					/>
 				</div>
 			</template>
