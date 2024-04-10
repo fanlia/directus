@@ -6,6 +6,7 @@ import { GraphQLBigInt } from '../services/graphql/types/bigint.js';
 import { GraphQLDate } from '../services/graphql/types/date.js';
 import { GraphQLGeoJSON } from '../services/graphql/types/geojson.js';
 import { GraphQLHash } from '../services/graphql/types/hash.js';
+import { GraphQLVector } from '../services/graphql/types/vector.js';
 
 export function getGraphQLType(
 	localType: Type | 'alias' | 'unknown',
@@ -30,7 +31,7 @@ export function getGraphQLType(
 		case 'json':
 			return GraphQLJSON;
 		case 'vector':
-			return new GraphQLList(GraphQLFloat);
+			return GraphQLVector;
 		case 'geometry':
 			return GraphQLGeoJSON;
 		case 'timestamp':

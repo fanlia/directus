@@ -12,7 +12,7 @@ add pgvector to directus
 ## knex
 
 ```js
-Import the library
+// Import the library
 
 import pgvector from 'pgvector/knex';
 
