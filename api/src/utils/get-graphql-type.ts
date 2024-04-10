@@ -29,6 +29,8 @@ export function getGraphQLType(
 			return new GraphQLList(GraphQLString);
 		case 'json':
 			return GraphQLJSON;
+		case 'vector':
+			return new GraphQLList(GraphQLFloat);
 		case 'geometry':
 			return GraphQLGeoJSON;
 		case 'timestamp':

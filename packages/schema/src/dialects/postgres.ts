@@ -110,6 +110,7 @@ export default class Postgres implements SchemaInspector {
           , c.column_name
           , c.column_default as default_value
           , c.data_type
+          , c.udt_name
 			 		, c.character_maximum_length as max_length
           , c.is_generated = 'ALWAYS' is_generated
           , CASE WHEN c.is_identity = 'YES' THEN true ELSE false END is_identity
@@ -194,6 +195,10 @@ export default class Postgres implements SchemaInspector {
 
 			if (['point', 'polygon'].includes(column.data_type)) {
 				column.data_type = 'unknown';
+			}
+
+			if (column.data_type === 'USER-DEFINED' && typeof column.udt_name === 'string') {
+				column.data_type = column.udt_name
 			}
 
 			overview[column.table_name]!.columns[column.column_name] = column;
