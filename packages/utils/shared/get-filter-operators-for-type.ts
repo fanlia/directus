@@ -67,6 +67,9 @@ export function getFilterOperatorsForType(
 		case 'geometry':
 			return ['eq', 'neq', 'null', 'nnull', 'intersects', 'nintersects', 'intersects_bbox', 'nintersects_bbox'];
 
+		case 'vector':
+			return ['l2_distance', 'max_inner_product', 'cosine_distance'];
+
 		default:
 			return [
 				'contains',

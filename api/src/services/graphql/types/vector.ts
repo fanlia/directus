@@ -4,7 +4,7 @@ import pgvector from 'pgvector/knex';
 
 export const GraphQLVector = new GraphQLScalarType({
 	name: 'GraphQLVector',
-	description: 'Vector value, List of Float',
+	description: 'Vector value, List of Number',
 	serialize(value) {
 		if (!value) return value;
 		if (typeof value !== 'string') {
@@ -14,14 +14,13 @@ export const GraphQLVector = new GraphQLScalarType({
 		return pgvector.fromSql(value);
 	},
 	parseValue(value) {
-
 		return pgvector.toSql(value);
 	},
 	parseLiteral(ast) {
-		if (ast.kind !== Kind.LIST && ast.values.every(value => typeof value === 'number')) {
-			throw new Error('Value must be a List of FLoat');
+		if (ast.kind !== Kind.LIST && ast.values.some(d => d.kind !== Kind.INT || d.kind !== Kind.Float)) {
+			throw new Error('Value must be a List of Number');
 		}
 
-		return ast.values
+		return ast.values.map(d => +d.value)
 	},
 });

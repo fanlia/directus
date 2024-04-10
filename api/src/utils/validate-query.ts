@@ -80,6 +80,11 @@ function validateFilter(filter: Query['filter']) {
 				case '_nintersects_bbox':
 					validateGeometry(value, key);
 					break;
+				case '_l2_distance':
+				case '_max_inner_product':
+				case '_cosine_distance':
+					validateVector(value, key);
+					break;
 				case '_none':
 				case '_some':
 					validateFilter(nested);
@@ -165,6 +170,10 @@ export function validateGeometry(value: any, key: string) {
 		throw new InvalidQueryError({ reason: `"${key}" has to be a valid GeoJSON object` });
 	}
 
+	return true;
+}
+
+export function validateVector(value: any, key: string) {
 	return true;
 }
 

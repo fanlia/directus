@@ -84,6 +84,7 @@ import { createSubscriptionGenerator } from './subscription.js';
 import { GraphQLBigInt } from './types/bigint.js';
 import { GraphQLDate } from './types/date.js';
 import { GraphQLGeoJSON } from './types/geojson.js';
+import { GraphQLVector } from './types/vector.js';
 import { GraphQLHash } from './types/hash.js';
 import { GraphQLStringOrFloat } from './types/string-or-float.js';
 import { GraphQLVoid } from './types/void.js';
@@ -882,6 +883,21 @@ export class GraphQLService {
 				},
 			});
 
+			const VectorFilterOperators = schemaComposer.createInputTC({
+				name: 'vector_filter_operators',
+				fields: {
+					_l2_distance: {
+						type: GraphQLVector,
+					},
+					_max_inner_product: {
+						type: GraphQLVector,
+					},
+					_cosine_distance: {
+						type: GraphQLVector,
+					},
+				},
+			});
+
 			const HashFilterOperators = schemaComposer.createInputTC({
 				name: 'hash_filter_operators',
 				fields: {
@@ -980,6 +996,9 @@ export class GraphQLService {
 								break;
 							case GraphQLGeoJSON:
 								filterOperatorType = GeometryFilterOperators;
+								break;
+							case GraphQLVector:
+								filterOperatorType = VectorFilterOperators;
 								break;
 							case GraphQLHash:
 								filterOperatorType = HashFilterOperators;

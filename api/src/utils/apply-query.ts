@@ -800,6 +800,18 @@ export function applyFilter(
 			if (operator == '_nintersects_bbox') {
 				dbQuery[logical].whereRaw(helpers.st.nintersects_bbox(key, compareValue));
 			}
+
+			// if (operator == '_l2_distance') {
+			// 	dbQuery.orderBy(knex.l2Distance(key, compareValue));
+			// }
+			//
+			// if (operator == '_max_inner_product') {
+			// 	dbQuery[logical].maxInnerProduct(key, compareValue);
+			// }
+			//
+			// if (operator == '_cosine_distance') {
+			// 	dbQuery[logical].cosineDistance(key, compareValue);
+			// }
 		}
 	}
 }
