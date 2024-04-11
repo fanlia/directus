@@ -32,7 +32,7 @@ export default async function getASTFromQuery(
 
 	Object.keys(query.filter || {})
 		.forEach(field => {
-			const type = schema.collections[collection].fields[field].type
+			const type = schema.collections[collection]?.fields[field]?.type
 			if (type === 'vector') {
 				const value = query.filter[field]
 				const vector_operator = Object.keys(value)[0]
