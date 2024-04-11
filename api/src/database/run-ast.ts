@@ -335,6 +335,20 @@ async function getDBQuery(
 					orderByFields,
 				);
 			}
+		} else if (sortRecords.every(d => typeof d.order === 'object')) {
+				let sortRecord = sortRecords[0]
+				const { operator, value } = sortRecord.order
+				const key = sortRecord.column.toString()
+				if (operator == '_l2_distance') {
+					sortRecord = knex.l2Distance(key, value)
+				} else if (operator == '_max_inner_product') {
+					sortRecord = knex.maxInnerProduct(key, value)
+				} else if (operator == '_cosine_distance') {
+					sortRecord = knex.cosineDistance(key, value)
+				} else {
+					throw new Error(`invalid vector sort operator: ${operator}`)
+				}
+				dbQuery.orderBy(sortRecord);
 		} else {
 			sortRecords.map((sortRecord) => {
 				if (sortRecord.column.includes('.')) {

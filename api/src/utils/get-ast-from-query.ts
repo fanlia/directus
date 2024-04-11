@@ -27,6 +27,30 @@ export default async function getASTFromQuery(
 ): Promise<AST> {
 	query = cloneDeep(query);
 
+	const filter = {}
+	const vectors = []
+
+	Object.keys(query.filter || {})
+		.forEach(field => {
+			const type = schema.collections[collection].fields[field].type
+			if (type === 'vector') {
+				const value = query.filter[field]
+				const vector_operator = Object.keys(value)[0]
+				const vector_value = value[vector_operator]
+				vectors.push({
+					column: field,
+					order: {
+						operator: vector_operator,
+						value: vector_value,
+					},
+				})
+			} else {
+				filter[field] = query.filter[field]
+			}
+		})
+
+	query.filter = filter
+
 	const accountability = options?.accountability;
 	const action = options?.action || 'read';
 
@@ -74,7 +98,9 @@ export default async function getASTFromQuery(
 	delete query.fields;
 	delete query.deep;
 
-	if (!query.sort) {
+	if (vectors.length > 0) {
+		query.sort = vectors
+	} if (!query.sort) {
 		// We'll default to the primary key for the standard sort output
 		let sortField = schema.collections[collection]!.primary;
 
